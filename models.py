@@ -9,7 +9,7 @@ class Status(Base):
     __tablename__ = "statusues"
 
     id = Column(Integer, primary_key=True, index=True)
-    deviceId = Column(String(255), unique=True, nullable=False, index=True)
+    deviceId = Column(String(255), nullable=False, index=True)
     timestamp = Column(
         DateTime, default=datetime.datetime.utcnow, nullable=False)
     pressure = Column(Integer)
