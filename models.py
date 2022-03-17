@@ -1,11 +1,10 @@
-from typing import Literal
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 import datetime
 
 from database import Base
 
-
+# create sqlalchemy model from base for the creation of table 
 class Status(Base):
     __tablename__ = "statusues"
 
