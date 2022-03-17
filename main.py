@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.orm import Session
+import uvicorn
 
 import crud
 import models
@@ -51,3 +52,8 @@ async def status_histogram(deviceId: str, skip: int = 0, limit: int = 100, db: S
     status_histogram = crud.get_status_histogram(statuses, deviceId)
 
     return {**status_histogram, "deviceId": db_device.deviceId}
+
+
+# scheduler 
+if __name__ == "__main__":
+    uvicorn.run(app, host='127.0.0.1', port=8000)
