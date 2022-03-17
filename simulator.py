@@ -3,12 +3,13 @@ from locust import HttpUser, task, between
 import random
 import json
 
+# randomly generated data for device input parameters
 status = ["ON", "OFF", "ACTIVE", "INACTIVE"]
 pressure = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
 temperature = [100, 120, 140, 160, 180, 200, 220, 240, 260, 280]
 
 
-# 
+# simulator APpUser class
 class AppUser(HttpUser):
     
     # interval between requests
