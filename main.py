@@ -39,17 +39,19 @@ async def create_device_status(
 @app.get("/statuses/histogram/{deviceId}", response_model=schemas.StatusHistogram, status_code=status.HTTP_200_OK)
 async def status_histogram(deviceId: str, db: Session = Depends(get_db)):
 
-    db_device = crud.get_device(db, deviceId=deviceId)
+    # get records of specific deviceId from the database
+    statuses = crud.get_device(db, deviceId=deviceId)
 
-    if db_device is None:
+    # if records of selected deviceId exists
+    if statuses.first():
+        status_histogram = crud.get_status_histogram(statuses)
+
+    # if records of selected deviceId does not exist
+    else:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Device not found")
 
-    statuses = crud.get_statuses(db)
-
-    status_histogram = crud.get_status_histogram(statuses, deviceId)
-
-    return {**status_histogram, "deviceId": db_device.deviceId}
+    return {**status_histogram, "deviceId": deviceId}
 
 
 # scheduler

@@ -20,18 +20,15 @@ def create_device_status(db: Session, status: schemas.StatusCreate, deviceId: st
 
 
 def get_device(db: Session, deviceId: str):
-    return db.query(models.Status).filter(models.Status.deviceId == deviceId).first()
+    return db.query(models.Status).filter(models.Status.deviceId == deviceId)
 
 # get all device statuses
 
 
-def get_statuses(db: Session):
-    return db.query(models.Status).all()
-
 # get histogram of status
 
 
-def get_status_histogram(statuses, deviceId):
+def get_status_histogram(statuses):
 
     # create dictionary to store histogram data
     histogram = {}
@@ -40,13 +37,13 @@ def get_status_histogram(statuses, deviceId):
     for status in statuses:
 
         # check each status object for status and deviceId
-        if status.status == "ON" and status.deviceId == deviceId:
+        if status.status == "ON":
             histogram["ON"] = histogram.get("ON", 0) + 1
-        elif status.status == "OFF" and status.deviceId == deviceId:
+        elif status.status == "OFF":
             histogram["OFF"] = histogram.get("OFF", 0) + 1
-        elif status.status == "ACTIVE" and status.deviceId == deviceId:
+        elif status.status == "ACTIVE":
             histogram["ACTIVE"] = histogram.get("ACTIVE", 0) + 1
-        elif status.status == "INACTIVE" and status.deviceId == deviceId:
+        elif status.status == "INACTIVE":
             histogram["INACTIVE"] = histogram.get("INACTIVE", 0) + 1
 
     return histogram
