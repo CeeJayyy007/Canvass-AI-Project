@@ -16,7 +16,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-# create Dependency 
+# create Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -35,25 +35,23 @@ async def create_device_status(
     return crud.create_device_status(db=db, status=db_status, deviceId=deviceId)
 
 
-
-
 # create FastAPI path operation code for getting device status histagram
 @app.get("/statuses/histogram/{deviceId}", response_model=schemas.StatusHistogram, status_code=status.HTTP_200_OK)
-async def status_histogram(deviceId: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    
+async def status_histogram(deviceId: str, db: Session = Depends(get_db)):
+
     db_device = crud.get_device(db, deviceId=deviceId)
 
     if db_device is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Device not found")
 
-    statuses = crud.get_statuses(db, skip = skip, limit=limit)
+    statuses = crud.get_statuses(db)
 
     status_histogram = crud.get_status_histogram(statuses, deviceId)
 
     return {**status_histogram, "deviceId": db_device.deviceId}
 
 
-# scheduler 
+# scheduler
 if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)
