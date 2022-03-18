@@ -5,9 +5,6 @@ import json
 
 # randomly generated data for device input parameters
 status = ["ON", "OFF", "ACTIVE", "INACTIVE"]
-pressure = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-temperature = [100, 120, 140, 160, 180, 200, 220, 240, 260, 280]
-
 
 # simulator APpUser class
 class AppUser(HttpUser):
@@ -20,4 +17,4 @@ class AppUser(HttpUser):
     @task
     def create_device_status(self):
         self.client.post(f"/devices/sensor_{random.randint(1,10)}/status",  data=json.dumps({'status': random.choice(status),
-                         'pressure': random.choice(pressure), 'temperature': random.choice(temperature)}))
+                         'pressure': random.randint(100,1000), 'temperature': random.randint(100,300)}))

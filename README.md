@@ -1,24 +1,24 @@
 # Spinning Up On Local System
 
+- Install python
+- git clone https://github.com/CeeJayyy007/Canvass-AI-Project.git
 - [Optional] Install virtual environment: On your terminal, run `python -m venv env`
 - [Optional] Activate installed virtual environment: On your terminal, run `source/env/Scripts/activate`
-- On your terminal, run `pip install fastapi` to Install FsstAPI
-- On your terminal, run `pip install uvicorn` to install uvicorn server
-- On your terminal, run `pip install sqlalchemy` to install sqlalchemy orm
-- On your terminal, run `pip install pydantic` to install pydantic
+- Install the project requirements: On your terminal, run `pip install -r requirements.txt`
+- To run the API, on your terminal, run `uvicorn main:app`
 
-* Please refer to requirements.txt for a full list of all the dependencies and packages used to carry out this project
+\* Please refer to requirements.txt for a full list of all the dependencies and packages used to carry out this project \* Project uses sqlite database
 
 # API endpoints
 
-These endpoints to interact with in utilizing this app.
+The endpoints to interact with in utilizing this app.
 
 ## create device status
 
 **POST**
 
 - For creating device status parameters
-  [http://localhost:8000/{deviceId}/status]
+  [http://localhost:8000/devices/{deviceId}/status]
 
 **_Parameters_**
 
@@ -60,5 +60,16 @@ These endpoints to interact with in utilizing this app.
 - On your terminal, run `pip install locust` to install locust for load testing
 - On your terminal, run `locust -f simulator.py`
 - Follow the URL link [http://0.0.0.0:8089/] displayed from the command above. Note: If the given URL Link does not load the Locust's Web UI, please use [http://localhost:8089/] instead.
-- From the interactive Web UI, select number of users to simulate, select spawn rate and select Host Url. Host URL is the URL that runs your project [http://localhost:8000/]
-- CLick `Start Streaming` to start test
+- From the interactive Web UI, select `Number of users (peak concurrency)` to simulate, select `Spawn rate (users started/second)`
+  and select `Host` Url. Host URL is the URL that you run your project on [http://localhost:8000/]
+- Click `Start Swarming` to start test
+
+# Additional Information
+
+## Limitations and Challenges
+
+1. Inanbility to include tests with the project due to time constraints
+
+## Final Words
+
+Special appreciation to the team and everyone involved in this process for the privilege to learn and participate. It has really been an opportunity to learn and grow and I am sincerely grateful!
