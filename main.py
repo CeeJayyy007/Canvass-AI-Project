@@ -53,6 +53,23 @@ async def status_histogram(deviceId: str, db: Session = Depends(get_db)):
 
     return {**status_histogram, "deviceId": deviceId}
 
+# create FastAPI path operation code for getting devices with top parameters
+
+
+@app.get("/devices/{parameter}", status_code=status.HTTP_200_OK)
+async def get_parameter(parameter=str, db: Session = Depends(get_db)):
+
+    db_parameter = crud.create_parameter_model(parameter)
+
+    # get all status data from database session
+    db_data = db.query(models.Status).order_by(
+        db_parameter.desc())
+
+    # limit db_data to only 10 entries
+    db_data_top = db_data.limit(10).all()
+
+    return db_data_top
+
 
 # scheduler
 if __name__ == "__main__":

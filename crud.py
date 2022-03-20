@@ -1,5 +1,7 @@
+from http.client import HTTPException
 from typing import Optional
 from sqlalchemy.orm import Session
+from fastapi import Depends, FastAPI, HTTPException, status
 
 import models
 import schemas
@@ -37,13 +39,29 @@ def get_status_histogram(statuses):
     for status in statuses:
 
         # check each status object for status and deviceId
-        if status.status == "ON":
-            histogram["ON"] = histogram.get("ON", 0) + 1
-        elif status.status == "OFF":
-            histogram["OFF"] = histogram.get("OFF", 0) + 1
-        elif status.status == "ACTIVE":
-            histogram["ACTIVE"] = histogram.get("ACTIVE", 0) + 1
-        elif status.status == "INACTIVE":
-            histogram["INACTIVE"] = histogram.get("INACTIVE", 0) + 1
+        if status.status == status.status:
+            histogram[status.status] = histogram.get(status.status, 0) + 1
 
     return histogram
+
+# API to return parameter as model
+
+
+def create_parameter_model(parameter):
+
+    # check if parameter sent is temperature
+    if parameter == models.Status.temperature.key:
+
+        db_parameter = models.Status.temperature
+
+    # check if parameter sent is pressure
+    elif parameter == models.Status.pressure.key:
+
+        db_parameter = models.Status.pressure
+
+    # if parameter does not match database parameters, then raise an exception
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Parameter does not exist")
+
+    return db_parameter

@@ -21,6 +21,7 @@ The endpoints to interact with in utilizing this app.
   [http://localhost:8000/devices/{deviceId}/status]
 
 **_Parameters_**
+`content-type: application/json`
 
 |         Field |   Required   |   Type   | Description            |
 | ------------: | :----------: | :------: | ---------------------- |
@@ -36,8 +37,8 @@ The endpoints to interact with in utilizing this app.
 
 **GET**
 
-- For obtaining the histogram of status for a given device
-  [http://localhost:8000/statuses/histogram/{deviceId}]
+For obtaining the histogram of status for a given device
+[http://localhost:8000/statuses/histogram/{deviceId}]
 
 **_Parameters_**
 `content-type: application/json`
@@ -45,6 +46,20 @@ The endpoints to interact with in utilizing this app.
 |      Field | Required |  Type  | Description |
 | ---------: | :------: | :----: | ----------- |
 | `deviceId` | required | string | device Id   |
+
+## Top 10 devices by selected parameter
+
+**GET**
+
+- For obtaining the top 10 devices with highest temperature or pressure data
+  [http://localhost:8000/devices/{parameter}]
+
+**_Parameters_**
+`content-type: application/json`
+
+|       Field | Required |  Type  | Description                       |
+| ----------: | :------: | :----: | --------------------------------- |
+| `parameter` | required | string | selected device parameter to rank |
 
 ## Documentation
 
